@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Payment details · Accurova</title>
+<meta name="description" content="Payment schedule and PayNow details for your Accurova booking.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Payment details · Accurova">
+<meta property="og:description" content="Payment schedule and PayNow details for your Accurova booking.">
+<meta name="theme-color" content="">
+<link rel="icon" href="assets/accurova-mark.png">
+<link rel="apple-touch-icon" href="assets/accurova-mark.png">
+<script>
+  // Apply a remembered theme before first paint; otherwise tokens.css follows the OS.
+  try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="brand/tokens.css">
+<style>
+  /* Base */
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font: 400 14px/20px var(--font-sans); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, p { margin: 0; }
+  a { color: var(--cyan-ink); }
+  :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .signal { background: linear-gradient(90deg, var(--cyan), var(--magenta)); }
+  .label { font: 600 11px/14px var(--font-display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); }
+  .muted { color: var(--ink-muted); }
+  .i { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  .wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 var(--space-4); }
+  @media (min-width: 640px) { .wrap { padding: 0 var(--space-6); } }
+  .stack { display: flex; flex-direction: column; gap: var(--space-5); }
+
+  /* Header */
+  .top { position: sticky; top: 0; z-index: 10; background: var(--bg); }
+  .top__row { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .top__line { height: 1px; }
+  .brand { display: inline-flex; align-items: center; gap: var(--space-3); color: var(--ink); text-decoration: none; border-radius: var(--radius-md); }
+  .brand__mark { width: 32px; height: 32px; border-radius: var(--radius-md); border: 1px solid var(--line); }
+  .brand__name { font: 600 13px/1 var(--font-display); letter-spacing: 0.32em; text-transform: uppercase; }
+
+  /* Hero */
+  .hero { padding-top: var(--space-7); padding-bottom: var(--space-5); }
+  .hero .label { margin-bottom: var(--space-2); }
+  .hero h1 { font: 700 28px/32px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; }
+  .hero p.lede { margin-top: var(--space-3); max-width: 46ch; font: 400 16px/24px var(--font-sans); color: var(--ink-muted); }
+  @media (min-width: 640px) { .hero h1 { font-size: 40px; line-height: 44px; } }
+
+  /* Button */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: var(--control-md); padding: 0 var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--radius-md); background: transparent; color: var(--ink); font: 600 11px/14px var(--font-display); letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out); }
+  .btn:hover { border-color: var(--cyan-ink); color: var(--cyan-ink); background: var(--cyan-tint); }
+  .btn:active { box-shadow: none; }
+  .btn--primary { background: var(--cyan); border-color: var(--cyan-ink); color: var(--on-accent); }
+  .btn--primary:hover { background: var(--cyan); color: var(--on-accent); box-shadow: var(--glow-cyan); }
+  .btn--ghost { border-color: transparent; color: var(--ink-muted); }
+  .btn--lg { height: var(--control-lg); padding: 0 var(--space-5); }
+  .btn--icon { width: var(--control-lg); height: var(--control-lg); padding: 0; }
+  .btn.is-done, .btn.is-done:hover { border-color: var(--success); color: var(--success); background: transparent; }
+  @media (pointer: coarse) { .btn { height: var(--control-lg); } }
+
+  /* Tabs */
+  .tabs { display: flex; gap: var(--space-1); border-bottom: 1px solid var(--line); margin-bottom: var(--space-5); }
+  .tab { position: relative; height: var(--control-lg); padding: 0 var(--space-4); background: transparent; border: 0; border-radius: var(--radius-md) var(--radius-md) 0 0; color: var(--ink-muted); font: 600 11px/14px var(--font-display); letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: color var(--dur-fast) var(--ease-out); }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-selected="true"] { color: var(--cyan-ink); }
+  .tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--magenta)); }
+  [role="tabpanel"] { animation: enter var(--dur-base) var(--ease-out); }
+  @keyframes enter { from { opacity: 0; transform: translateY(4px); } }
+
+  /* Panel */
+  .panel { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-4); }
+  @media (min-width: 640px) { .panel { padding: var(--space-5); } }
+  .panel--raised { background: var(--surface-raised); }
+  .panel__title { display: flex; justify-content: space-between; align-items: center; margin: 0 0 var(--space-4); font: 600 11px/14px var(--font-display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); }
+  .panel--bracket::before, .panel--bracket::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--cyan-ink); pointer-events: none; }
+  .panel--bracket::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; border-top-left-radius: var(--radius-lg); }
+  .panel--bracket::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; border-bottom-right-radius: var(--radius-lg); border-color: var(--magenta-ink); }
+
+  /* Badge */
+  .badge { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 0 var(--space-2); border: 1px solid currentColor; border-radius: var(--radius-sm); font: 500 11.5px/16px var(--font-mono); letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-muted); white-space: nowrap; }
+  .badge::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-pill); background: currentColor; }
+  .badge--cyan { color: var(--cyan-ink); background: var(--cyan-tint); }
+
+  /* Alert */
+  .alert { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-3) var(--space-4); background: var(--surface-raised); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); color: var(--ink); }
+  .alert__icon { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: var(--radius-sm); font: 700 12px/1 var(--font-mono); }
+  .alert__title { font: 600 14px/20px var(--font-sans); }
+  .alert__body { margin-top: 2px; font: 400 12.5px/18px var(--font-sans); color: var(--ink-muted); }
+  .alert--info { background: var(--cyan-tint); border-color: var(--cyan-ink); }
+  .alert--info .alert__icon { color: var(--cyan-ink); }
+  .alert--warning { border-color: var(--warning); }
+  .alert--warning .alert__icon { color: var(--warning); }
+
+  /* Payment schedule */
+  .steps { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: grid; gap: var(--space-3); }
+  @media (min-width: 560px) { .steps { grid-template-columns: 1fr 1fr; } }
+  .step { display: flex; flex-direction: column; gap: var(--space-2); }
+  .step__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+  .step__pct { font: 700 40px/44px var(--font-display); letter-spacing: 0.04em; }
+  .step__pct small { margin-left: 2px; font: 500 16px/1 var(--font-mono); color: var(--ink-muted); }
+  .step__name { font: 600 16px/22px var(--font-sans); }
+  .step__note { color: var(--ink-muted); }
+
+  /* PayNow methods */
+  .methods { display: grid; gap: var(--space-3); margin-bottom: var(--space-4); counter-reset: method; }
+  @media (min-width: 640px) { .methods { grid-template-columns: 1fr 1fr; } .methods--single { grid-template-columns: 1fr; } }
+  .method { display: flex; flex-direction: column; gap: var(--space-4); counter-increment: method; }
+  .method__label::before { content: "0" counter(method) " \00B7  "; color: var(--cyan-ink); }
+  .qr { margin: 0; align-self: center; width: 100%; max-width: 232px; }
+  .qr img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .method .btn--lg { width: 100%; }
+  .help { font: 400 12.5px/18px var(--font-sans); color: var(--ink-muted); }
+
+  .field { display: flex; flex-direction: column; gap: var(--space-2); }
+  .copyline { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3); background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius-md); }
+  .copyline__value { flex: 1; min-width: 0; font: 500 16px/24px var(--font-mono); letter-spacing: 0.02em; white-space: nowrap; user-select: all; }
+  .copyline .btn { min-width: 96px; }
+  .field__text { font: 600 16px/22px var(--font-sans); }
+
+  /* After you pay */
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+  .rule { height: 1px; margin: var(--space-5) 0; border: 0; background: var(--line); }
+  .lead { font: 600 16px/22px var(--font-sans); }
+  .signoff { font: 500 16px/24px var(--font-sans); }
+
+  /* Footer */
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); padding-top: var(--space-6); padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom)); font: 500 11.5px/16px var(--font-mono); letter-spacing: 0.02em; color: var(--ink-muted); }
+  .foot a { color: inherit; }
+  .foot a:hover { color: var(--cyan-ink); }
+</style>
+<noscript><style>[role="tabpanel"][hidden] { display: flex !important; } .tabs { display: none; } #theme-toggle { display: none; }</style></noscript>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap top__row">
+    <a class="brand" href="https://accurova.com">
+      <img class="brand__mark" src="assets/accurova-mark.png" alt="" width="32" height="32">
+      <span class="brand__name">Accurova</span>
+    </a>
+    <button class="btn btn--ghost btn--icon" id="theme-toggle" type="button" aria-label="Switch theme">
+      <svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+  </div>
+  <div class="top__line signal"></div>
+</header>
+
+<section class="wrap hero">
+  <p class="label">Client payments</p>
+  <h1>Payment details</h1>
+  <p class="lede">How and when to pay for your booking, by PayNow QR code or transfer.</p>
+</section>
+
+<main class="wrap">
+  <div class="tabs" role="tablist" aria-label="Pay to">
+    <button class="tab" type="button" role="tab" id="tab-business" aria-controls="panel-business" aria-selected="true" data-hash="">Business</button>
+    <button class="tab" type="button" role="tab" id="tab-personal" aria-controls="panel-personal" aria-selected="false" tabindex="-1" data-hash="personal">Personal</button>
+  </div>
+
+  <div class="stack">
+    <div class="stack" role="tabpanel" id="panel-business" aria-labelledby="tab-business">
+      <section class="panel" aria-labelledby="schedule-title">
+        <h2 class="panel__title" id="schedule-title">Payment schedule</h2>
+        <ol class="steps">
+          <li class="step panel panel--raised">
+            <div class="step__head">
+              <span class="step__pct">50<small>%</small></span>
+              <span class="badge badge--cyan">On booking</span>
+            </div>
+            <p class="step__name">Retainer</p>
+            <p class="step__note">Non-refundable deposit, due upon booking to reserve the agreed date and time.</p>
+          </li>
+          <li class="step panel panel--raised">
+            <div class="step__head">
+              <span class="step__pct">50<small>%</small></span>
+              <span class="badge">Event + 1 day</span>
+            </div>
+            <p class="step__name">Remaining balance</p>
+            <p class="step__note">Due 1 day after the event.</p>
+          </li>
+        </ol>
+        <div class="alert alert--info">
+          <span class="alert__icon" aria-hidden="true">i</span>
+          <div>
+            <p class="alert__title">Your date is locked in by the retainer</p>
+            <p class="alert__body">The booking date and time are reserved once we receive the 50% retainer.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel--bracket" aria-labelledby="business-pay-title">
+        <h2 class="panel__title" id="business-pay-title">Pay by PayNow</h2>
+        <div class="methods">
+          <article class="method panel panel--raised">
+            <h3 class="label method__label">Scan QR code</h3>
+            <figure class="qr">
+              <img src="assets/paynow-business-qr.jpg" width="513" height="513" alt="PayNow QR code for Accurova - You Technologies Group (Singapore)">
+            </figure>
+            <a class="btn btn--primary btn--lg" href="assets/paynow-business.jpg" download="Accurova-PayNow-QR.jpg" data-save-qr>
+              <svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Save QR
+            </a>
+            <p class="help">Save it to your photos, then in your banking app choose Scan QR and upload it from your gallery.</p>
+          </article>
+
+          <article class="method panel panel--raised">
+            <h3 class="label method__label">PayNow to UEN</h3>
+            <div class="field">
+              <span class="label">UEN</span>
+              <div class="copyline">
+                <span class="copyline__value">201628225CIUI</span>
+                <button class="btn" type="button" data-copy="201628225CIUI" data-copy-name="UEN">
+                  <svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span>
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <span class="label">Account name</span>
+              <p class="field__text">Accurova - You Technologies Group (Singapore)</p>
+            </div>
+            <p class="help">In your banking app choose PayNow, then UEN, and paste the number.</p>
+          </article>
+        </div>
+        <div class="alert alert--warning">
+          <span class="alert__icon" aria-hidden="true">!</span>
+          <div>
+            <p class="alert__title">Check the UEN before you confirm</p>
+            <p class="alert__body">Transfers must be made to UEN 201628225CIUI. Your bank should show the recipient as Accurova - You Technologies Group (Singapore).</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="stack" role="tabpanel" id="panel-personal" aria-labelledby="tab-personal" hidden>
+      <section class="panel panel--bracket" aria-labelledby="personal-pay-title">
+        <h2 class="panel__title" id="personal-pay-title">Pay by PayNow</h2>
+        <div class="methods">
+          <article class="method panel panel--raised">
+            <h3 class="label method__label">Scan QR code</h3>
+            <figure class="qr">
+              <img src="assets/paynow-personal.png" alt="Personal PayNow QR code" data-optional>
+            </figure>
+            <a class="btn btn--primary btn--lg" href="assets/paynow-personal.png" download="PayNow-QR.png" data-save-qr>
+              <svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Save QR
+            </a>
+            <p class="help">Save it to your photos, then in your banking app choose Scan QR and upload it from your gallery.</p>
+          </article>
+
+          <article class="method panel panel--raised">
+            <h3 class="label method__label">PayNow to mobile</h3>
+            <div class="field">
+              <span class="label">Mobile number</span>
+              <div class="copyline">
+                <span class="copyline__value">+65 9856 6543</span>
+                <button class="btn" type="button" data-copy="98566543" data-copy-name="Mobile number">
+                  <svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span>
+                </button>
+              </div>
+            </div>
+            <p class="help">In your banking app choose PayNow, then Mobile, and paste the number.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel" aria-labelledby="after-title">
+      <h2 class="panel__title" id="after-title">After you pay</h2>
+      <p class="lead">Once payment has been made, please feel free to send us the payment confirmation for our records.</p>
+      <div class="actions">
+        <a class="btn" href="https://wa.me/6598566543?text=Hi%20Accurova%2C%20here%20is%20my%20payment%20confirmation." target="_blank" rel="noopener">
+          <svg class="i" aria-hidden="true"><use href="#i-message"/></svg>Send on WhatsApp
+        </a>
+        <a class="btn" href="mailto:juliancheung@accurova.com?subject=Payment%20confirmation">
+          <svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Send by email
+        </a>
+      </div>
+      <p class="muted" style="margin-top: var(--space-4)">If you have any questions regarding the quotation, deliverables or payment schedule, please don't hesitate to reach out.</p>
+      <hr class="rule">
+      <p class="signoff">Thank you again, and we look forward to capturing your event.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap foot">
+  <span>Accurova · You Technologies Group (Singapore)</span>
+  <a href="https://accurova.com">accurova.com</a>
+</footer>
+
+<div class="sr-only" aria-live="polite" id="live"></div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const live = document.getElementById("live");
+  const announce = (msg) => { live.textContent = ""; requestAnimationFrame(() => { live.textContent = msg; }); };
+
+  // Theme: OS preference first, then the remembered choice.
+  const toggle = document.getElementById("theme-toggle");
+  const osDark = matchMedia("(prefers-color-scheme: dark)");
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const currentTheme = () => root.dataset.theme || (osDark.matches ? "dark" : "light");
+  function paintTheme() {
+    const dark = currentTheme() === "dark";
+    toggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    toggle.querySelector("use").setAttribute("href", dark ? "#i-sun" : "#i-moon");
+    themeMeta.content = getComputedStyle(root).getPropertyValue("--bg").trim();
+  }
+  toggle.addEventListener("click", () => {
+    const next = currentTheme() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    paintTheme();
+  });
+  osDark.addEventListener("change", paintTheme);
+  paintTheme();
+
+  // Tabs: Business by default, #personal deep-links to Personal.
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  function selectTab(tab, focus) {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute("aria-selected", on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    }
+    if (focus) tab.focus();
+    history.replaceState(null, "", tab.dataset.hash ? "#" + tab.dataset.hash : location.pathname + location.search);
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => selectTab(tab));
+    tab.addEventListener("keydown", (e) => {
+      const keys = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+      if (!(e.key in keys)) return;
+      e.preventDefault();
+      selectTab(tabs[(keys[e.key] + tabs.length) % tabs.length], true);
+    });
+  });
+  const linked = tabs.find((t) => t.dataset.hash && "#" + t.dataset.hash === location.hash);
+  if (linked) selectTab(linked);
+
+  // Copy to clipboard, with a fallback for non-secure contexts.
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) {}
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) {}
+    ta.remove();
+    return ok;
+  }
+  for (const btn of document.querySelectorAll("[data-copy]")) {
+    const text = btn.querySelector("span");
+    const icon = btn.querySelector("use");
+    let timer;
+    btn.addEventListener("click", async () => {
+      const ok = await copyText(btn.dataset.copy);
+      clearTimeout(timer);
+      btn.classList.toggle("is-done", ok);
+      text.textContent = ok ? "Copied" : "Copy failed";
+      icon.setAttribute("href", ok ? "#i-check" : "#i-copy");
+      announce(ok ? btn.dataset.copyName + " copied" : "Could not copy. Select the number and copy it manually.");
+      timer = setTimeout(() => {
+        btn.classList.remove("is-done");
+        text.textContent = "Copy";
+        icon.setAttribute("href", "#i-copy");
+      }, 2000);
+    });
+  }
+
+  // iOS saves downloads to Files, which banking apps can't import from.
+  // Use the share sheet there instead so "Save Image" puts the QR in Photos.
+  const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (isIOS && navigator.canShare) {
+    for (const link of document.querySelectorAll("[data-save-qr]")) {
+      let file = null;
+      // Fetch up front: share() must run synchronously inside the tap.
+      fetch(link.href)
+        .then((r) => (r.ok ? r.blob() : Promise.reject()))
+        .then((b) => { file = new File([b], link.getAttribute("download"), { type: b.type }); })
+        .catch(() => {});
+      link.addEventListener("click", (e) => {
+        if (!file || !navigator.canShare({ files: [file] })) return;
+        e.preventDefault();
+        navigator.share({ files: [file] }).catch(() => {});
+      });
+    }
+  }
+
+  // An optional QR that isn't uploaded yet hides its card instead of showing a broken image.
+  for (const img of document.querySelectorAll("img[data-optional]")) {
+    const hide = () => {
+      const card = img.closest(".method");
+      card.hidden = true;
+      card.parentElement.classList.add("methods--single");
+    };
+    if (img.complete && img.naturalWidth === 0) hide();
+    else img.addEventListener("error", hide);
+  }
+})();
+</script>
+</body>
+</html>

@@ -21,10 +21,10 @@ The "After you pay" section (WhatsApp / email confirmation) shows on both tabs.
 | `brand/tokens.css` | Unified UI design tokens (synced from `thebooleanjulian-branding`) |
 | `assets/paynow-business.jpg` | Bank-generated PayNow QR image, served by **Save QR** |
 | `assets/paynow-business-qr.jpg` | The QR cropped from it, shown on the page |
-| `assets/paynow-personal.png` | Personal PayNow QR. **Not added yet.** The QR card stays hidden until this file exists |
+| `assets/paynow-personal-qr.jpg` | Personal PayNow QR (mobile +65 9856 6543), shown and served by **Save QR**. If the file is missing, its card hides instead of showing a broken image |
 | `assets/accurova-mark.png` | Logo mark and favicon |
 
-To add the personal QR, drop the image at `assets/paynow-personal.png`. If it's a different format, update both `src` and `href` in the Personal tab of `index.html`.
+When replacing a QR image, decode it first and check that the payload has the right proxy: `SG.PAYNOW` with the UEN or `+6598566543`.
 
 ## Save QR
 

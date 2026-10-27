@@ -4,9 +4,11 @@ Client-facing payment details page for Accurova: payment schedule and PayNow det
 
 A single static page. No build step and no dependencies apart from Google Fonts. Styled with Julian Unified UI; `brand/tokens.css` is managed by `tbjsync`, so don't edit it by hand.
 
-## Tabs
+## Payee picker
 
-- **Business** (default): 50/50 payment schedule, PayNow QR, and PayNow to UEN `201628225CIUI`.
+The page leads with a large "Who are you paying?" choice so clients don't pay the wrong account. Each panel then confirms the recipient ("You're paying …") with a Business or Personal badge, followed by the QR.
+
+- **Business** (default): PayNow QR, PayNow to UEN `201628225CIUI`, and a compact 50/50 payment schedule.
 - **Personal**: personal PayNow QR and mobile number. Link to it directly with `#personal`.
 
 The "After you pay" section (WhatsApp / email confirmation) shows on both tabs.
